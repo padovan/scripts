@@ -11,17 +11,19 @@ QEMU_MNT="/mnt/qemu"
 
 TARGET="qemu"
 
+BASHPATH=/bin/bash
+
 set -e
 
 function vm_modules_install {
 
-	vm mount
+	$BASHPATH ./vm mount
 	set +e
 	sudo -E make INSTALL_MOD_PATH=$QEMU_MNT modules_install
 	release=$(make kernelrelease)
 	echo $release
 	sudo -E chroot $QEMU_MNT  depmod -a $release
-	vm umount
+	$BASHPATH ./vm umount
 }
 
 function mk_build {
