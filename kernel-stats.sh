@@ -108,6 +108,14 @@ function ks_report {
 	git log --grep="Reviewed-by.*$AUTHOR" --oneline $1 | wc -l
 	echo ""
 
+	echo "=== Acked-by names ==="
+	get_names $1 "Acked-by"
+	echo ""
+
+	echo "=== Acked-by total tags ==="
+	git log --grep="Acked-by.*$AUTHOR" --oneline $1 | wc -l
+	echo ""
+
 	echo "=== Signed-off-by names ==="
 	get_names $1 "Signed-off-by"
 	echo ""
@@ -142,6 +150,11 @@ function ks_report {
 	echo "<br />"
 	echo "<h4>Reviewed-by:</h4>"
 	find_commits $1 "Reviewed-by"
+	echo ""
+
+	echo "<br />"
+	echo "<h4>Acked-by:</h4>"
+	find_commits $1 "Acked-by"
 	echo ""
 
 	echo "<br />"
